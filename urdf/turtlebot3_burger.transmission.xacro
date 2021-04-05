@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<robot name="turtlebot3_burger" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <transmission name="wheel_left_trans">
+    
+    <type>transmission_interface/SimpleTransmission</type>
+
+    <joint name="wheel_left_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+
+    <actuator name="wheel_left_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+
+  </transmission>
+
+  <transmission name="wheel_right_trans">
+    
+    <type>transmission_interface/SimpleTransmission</type>
+
+    <joint name="wheel_right_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+
+    <actuator name="wheel_right_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+
+  </transmission>
+
+</robot>

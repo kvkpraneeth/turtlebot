@@ -1,5 +1,0 @@
-<library path="lib/libtbcontrol">
-  <class type="turtlebot_control::controller" base_class_type="controller_interface::ControllerBase">
-    <description>Custom TurtleBot Burger Controller</description>
-  </class>
-</library>

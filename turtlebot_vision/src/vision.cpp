@@ -14,7 +14,7 @@ vision::vision() : Node("vision")
 void vision::topiccb(const sensor_msgs::msg::Image::SharedPtr msg)
 {
     this->depthptr_ = cv_bridge::toCvCopy(msg, msg->encoding);
-    this->centroid_calc();
+    // this->centroid_calc();
     cv::imshow("Image Window", this->depthptr_->image);
     cv::waitKey(3);
 }

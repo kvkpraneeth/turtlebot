@@ -295,16 +295,16 @@
     <!--   </axis> -->
     <!-- </joint> -->
 
-    <include>
-      <uri>model://kinect</uri>
-      <pose>0 0 0.2 0 0 0</pose>
-      <scale>0.1 0.1 0.1</scale>
-    </include>
-
-    <joint name="kinect_rack" type="fixed">
-      <parent>base_link</parent>
-      <child>kinect::link</child>
-    </joint>
+    <!-- <include> -->
+    <!--   <uri>model://kinect</uri> -->
+    <!--   <pose>0 0 0.2 0 0 0</pose> -->
+    <!--   <scale>0.1 0.1 0.1</scale> -->
+    <!-- </include> -->
+    <!--  -->
+    <!-- <joint name="kinect_rack" type="fixed"> -->
+    <!--   <parent>base_link</parent> -->
+    <!--   <child>kinect::link</child> -->
+    <!-- </joint> -->
 
     <plugin name="ignition::gazebo::systems::JointStatePublisher" filename="libignition-gazebo-joint-state-publisher-system.so">
       <joint_name>wheel_left_joint</joint_name>

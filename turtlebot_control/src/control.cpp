@@ -3,6 +3,7 @@
 #include <functional>
 #include <geometry_msgs/msg/detail/pose__struct.hpp>
 #include <geometry_msgs/msg/detail/transform__struct.hpp>
+#include <geometry_msgs/msg/detail/twist__struct.hpp>
 #include <nav_msgs/msg/detail/odometry__struct.hpp>
 #include <turtlebot_msgs/srv/detail/twist__struct.hpp>
 #include "geometry_msgs/msg/transform_stamped.hpp"
@@ -49,37 +50,46 @@ control::control() : Node("Controller")
     this->declare_parameter("k2", 2.0);
     this->get_parameter("k2", this->k2);
 
-    this->declare_parameter("frequency", 5.0);
-    this->get_parameter("frequency", this->frequencyLong);
+    this->declare_parameter<long>("frequency", 5.0);
+    this->get_parameter<long>("frequency", this->frequencyLong);
     this->frequency = std::chrono::milliseconds{this->frequencyLong};
     this->frequencyComputation = frequencyLong / 1e3;
 
     this->declare_parameter("lookAhead", 3);
     this->get_parameter("lookAhead", this->lookAhead);
 
-    this->declare_parameter("x", 0);
+    this->declare_parameter("x", 0.0);
     this->get_parameter("x", this->robotState.position.x);
 
-    this->declare_parameter("y", 0);
+    this->declare_parameter("y", 0.0);
     this->get_parameter("y", this->robotState.position.y);
 
     double yaw;
-    this->declare_parameter("theta", 0);
+    this->declare_parameter("theta", 0.0);
     this->get_parameter("theta", yaw);
 
     this->robotState.orientation = yawToQuat(yaw).orientation;
 
     //Setting up Communication required by the given config.
-    this->service = this->create_service<turtlebot_msgs::srv::Twist>(this->inputServiceName, std::bind(&control::getVel, this, std::placeholders::_1, std::placeholders::_2));      
+    //this->service = this->create_service<turtlebot_msgs::srv::Twist>(this->inputServiceName, std::bind(&control::getVel, this, std::placeholders::_1, std::placeholders::_2));      
     this->timer = this->create_wall_timer(this->frequency, std::bind(&control::slidingModeControl, this));      
-    this->odomSub = this->create_subscription<nav_msgs::msg::Odometry>(this->odomTopicName, 1000, std::bind(&control::odomCB, this, std::placeholders::_3));    
-
+    this->odomSub = this->create_subscription<nav_msgs::msg::Odometry>(this->odomTopicName, 1000, std::bind(&control::odomCB, this, std::placeholders::_1));    
+    this->speedPub = this->create_publisher<geometry_msgs::msg::Twist>(this->outputTopicName, 100);
+    this->speedSub = this->create_subscription<geometry_msgs::msg::Twist>("/cmd_vel", 1000, std::bind(&control::getVel, this, std::placeholders::_1));
 }
 
+/*
 void control::getVel(const std::shared_ptr<turtlebot_msgs::srv::Twist::Request> request, std::shared_ptr<turtlebot_msgs::srv::Twist::Response> response)
 {
     this->velMsg = request->velocity;
     response->done = 1;
+}
+*/
+
+void control::getVel(const geometry_msgs::msg::Twist::SharedPtr msg)
+{
+    this->velMsg.linear = msg->linear;
+    this->velMsg.angular = msg->angular;
 }
 
 void control::odomCB(const nav_msgs::msg::Odometry::SharedPtr msg)
@@ -101,4 +111,21 @@ geometry_msgs::msg::Pose control::trajectoryGeneration()
     }
 
     return temp;
+}
+
+void control::slidingModeControl()
+{
+    geometry_msgs::msg::Pose desiredPose = this->trajectoryGeneration();
+
+    double the = quatToYaw(desiredPose) - quatToYaw(robotState);
+    double xe = (robotState.position.x - desiredPose.position.x);
+    double ye = (robotState.position.y - desiredPose.position.y);
+
+    geometry_msgs::msg::Twist speedMsg;
+
+    speedMsg.angular.z = velMsg.angular.z - (this->k2 * tanh(the - xe + ye));
+    speedMsg.linear.x = (-speedMsg.angular.z)*(xe+ye) + (velMsg.linear.x * (cos(the) + sin(the))) - (this->k1) * (tanh(xe - ye));
+
+    speedPub->publish(speedMsg);
+
 }

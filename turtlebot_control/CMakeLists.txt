@@ -17,10 +17,12 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(turtlebot_msgs REQUIRED)
 
 set(dependencies
     rclcpp
     geometry_msgs
+    turtlebot_msgs
 )
 
 include_directories(include)
@@ -52,10 +54,6 @@ install(TARGETS control_core
 
 install(TARGETS control
     DESTINATION lib/${PROJECT_NAME}
-)
-
-install(DIRECTORY launch
-    DESTINATION share/${PROJECT_NAME}
 )
 
 install(DIRECTORY include/

@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -27,7 +29,7 @@ def generate_launch_description():
     bridge = Node(
             package='ros_ign_bridge', 
             executable='parameter_bridge', 
-            arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist','/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo', '/depth_camera@sensor_msgs/msg/Image@ignition.msgs.Image', '/odom@nav_msgs/msg/Odometry@ignition.msgs.Odometry'])
+            arguments=['/cmd_vel_robot@geometry_msgs/msg/Twist@ignition.msgs.Twist', '/odom@nav_msgs/msg/Odometry@ignition.msgs.Odometry'])
 
     return LaunchDescription([ign_args, gazebo, spawn, bridge])
 

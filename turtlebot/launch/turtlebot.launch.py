@@ -18,6 +18,8 @@ def generate_launch_description():
 
     pkg_turtlebot = get_package_share_directory('turtlebot_description')
 
+    pkg_control = get_package_share_directory('turtlebot_control')
+
     gazebo = IncludeLaunchDescription(PythonLaunchDescriptionSource(os.path.join(pkg_ros_ign_gazebo, 'launch', 'ign_gazebo.launch.py'),),)
 
     model_path = os.path.join(pkg_turtlebot, 'models', 'turtlebot3_burger', 'model.sdf')
@@ -31,5 +33,7 @@ def generate_launch_description():
             executable='parameter_bridge', 
             arguments=['/cmd_vel_robot@geometry_msgs/msg/Twist@ignition.msgs.Twist', '/odom@nav_msgs/msg/Odometry@ignition.msgs.Odometry'])
 
-    return LaunchDescription([ign_args, gazebo, spawn, bridge])
+    control = Node(package='turtlebot_control', executable='control', arguments=[os.path.join(pkg_control, 'config.yaml')])
+
+    return LaunchDescription([ign_args, gazebo, spawn, bridge, control])
 

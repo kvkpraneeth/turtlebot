@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(turtlebot_description)
+project(turtlebot)
 
 if(NOT CMAKE_CXX_STANDARD)
 
@@ -15,17 +15,15 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
+find_package(turtlebot_control REQUIRED)
+find_package(turtlebot_description REQUIRED)
 
 set(dependencies
-    rclcpp
+    turtlebot_control
+    turtlebot_description
 )
 
-install(DIRECTORY models
-    DESTINATION share/${PROJECT_NAME}
-)
-
-install(DIRECTORY worlds
+install(DIRECTORY launch
     DESTINATION share/${PROJECT_NAME}
 )
 
@@ -37,8 +35,6 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_dependencies(${dependencies})
-ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.sh.in")
-ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/${PROJECT_NAME}.dsv.in")
 
 ament_package()
 

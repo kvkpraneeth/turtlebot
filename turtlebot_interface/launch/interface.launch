@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <node name="interface" pkg="turtlebot_interface" type="interface" output="screen"/>
+
+</launch>

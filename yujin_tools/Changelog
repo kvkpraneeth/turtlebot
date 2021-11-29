@@ -1,0 +1,370 @@
+0.4.58
+ - yujin_tools: change pyros_msgs repo from pyros-dev to yujinrobot repo in rosinstall devel.
+0.4.57
+ - yujin_tools: change pyros_schemas repo from pyros-dev to yujinrobot repo in rosinstall devel.
+0.4.56
+ - version bump for release
+0.4.55
+ - Stable docs list update
+ - New stable release(1.9.2) for singapore
+ - Naming fix for ansible script(python-yujin-ansible)
+ - New Stable release(1.10): Daring
+ - Add yujin_clean_logs script
+0.4.54
+ - groot_arm_binaries : fix external server rsynch path
+0.4.53
+ - yujin_tools : dropped dependencies to packages from ROS repositories
+0.4.52
+ - groot_sources : show untracked in status
+0.4.51
+ - yujin_tools : drop yujin_tools module dependency from setup.py
+0.4.45
+ - yujin_tools : updates for debian packaging
+0.4.44
+ - yujin_tools : support for kinetic
+0.4.43
+ - groot_sources : dont init when updating, and skip if not around
+0.4.42
+ - groot_sources : --make
+0.4.41
+ - groot_binaries : skip the buildstamp check now rsync is working
+0.4.40
+ - groot_binaries : pre-clear pyc files before sync
+0.4.39
+ - groot_binaries : hide directory only updates
+0.4.38
+ - groot_binaries : do checksum on files the same size (ignore the timestamps)
+0.4.37
+ - groot_binaries : pre-clean pyc files before pushing to the server
+0.4.36
+ - groot_binaries : critical bugfix to preserve times so it doesnt seem new and need copying over
+0.4.35
+ - groot_binaries : proper return code when build timestamp connection fails
+0.4.34
+ - yujin_ansible_bootstrap : succeed, even if apt-get tries to be interactive
+0.4.33
+ - groot_binaries : reflect error when rsync fails
+ - yujin_upload_deb : more robust deb handling
+0.4.32
+ - yujin_ansible_bootstrap - bootstrap python-yujin-ansible-playbooks
+0.4.31
+ - yujin_upload_deb - now available to other users as well
+0.4.30
+ - yujin_ansible - migrated to yujin_ansible_playbooks
+ - groot_binaries - bugfix missing timestamp lookup
+ - yujin_ansible - pc-* and podium-* frontends ready for usage
+0.4.28
+ - groot_binaries - checks timestamps to skip now, faster than rsync checks
+0.4.27
+ - yujin_ansible - pc-ros playbook started
+0.4.25
+ - yujin_ansible_bootstrap
+0.4.24
+ - groot_binaries --list-rosdeps gets a sort feature
+0.4.23
+ - groot_binaries gets a list-rosdeps option
+0.4.22
+ - groot_binaries now works with partners
+0.4.20
+ - groot_binaries push to external server moved
+0.4.18
+ - bugfix messages_ws dependency on ecl
+0.4.16
+ - updated groot_start scripts
+0.4.15
+ - groot_binaries does a rosdep update when installing rosdeps
+ - messages workspace for groot
+ - dropping ros_comm, diagnostics, common_msgs from groot workspaces, all now upstream
+0.4.14
+ - clear pyc files after syncing
+0.4.13
+ - updated groot_start_robot
+0.4.11
+ - clean *.pyc from groot source and binary workspaces
+0.4.10
+ - groot_start_concert and groot_start_robot
+0.4.9
+ - friendly reminder at the end of groot_sources and groot_binaries about rosdeps
+0.4.8
+ - parallelised job option for groot_sources
+ - show found underlays when running yujin_make --install-rosdeps
+0.4.7
+ - get yujin_make --install-rosdeps to reflect rosdep errors
+0.4.6
+ - bugfix path in groot_binaries script
+0.4.5
+ - fix rosdep underlay fix, clearly distinguish src and install spaces
+0.4.3
+ - fix help, required option conflict in groot_binaries
+0.4.2
+ - rosdep across underlay sources, not devels
+0.4.1
+ - groot scripts updated to handle stable/devel releases
+0.3.11
+ - bugfix paths for groot_sync unison resources.
+0.3.10
+ - bugfixes to yujin_clean_pyc_files
+0.3.9
+ - added script yujin_clean_pyc_files
+0.3.8
+ - groot_sync fix for gopher_meta -> gopher_robot
+ - dont bork when yujin_make installs rosdeps for non existant underlays
+0.3.7
+ - groot_build fix for the new workspaces
+0.3.6
+ - groot_sources gets bootstrap and desktop, loses rocon
+0.3.5
+ - yujin_make and yujin_make_isolated gets a --strip option
+0.3.1
+ - yujin package release script
+0.3.0
+ - shiny new release
+0.2.103
+ - eliminate old binary scripts
+0.2.102
+ - add the groot_arm_binaries script
+ - shift groot_binaries rsync location to yujin/amd64/indigo
+0.2.101
+ - update latest cubie toolchain now using glibc 2.19
+0.2.100
+ - optional internal/external server for groot binaries.
+0.2.98
+ - source environment before install rosdeps on groot_binaries.
+0.2.97
+ - catch the ignore profile with groot_sync too.
+00.2.96
+ - groot sources update with --merge.
+0.2.95
+ - switch groot binaries to yujinrobot, its faster for external access and not so big for internal.
+ - compression for groot binaries syncs.
+0.2.94
+ - added yujin_binaries as an alias (changing over) for groot_binaries.
+0.2.93
+ - add ecl ws as an underlay dependency of navi_ws
+0.2.92
+ - groot binaries rosdep installs now with --default-yes.
+0.2.91
+ - add concert to the groot binaries suite.
+0.2.90
+ - set eclipse subfolder in the workspace dir.
+0.2.89
+ - groot_sync with the new unison profile structure for gophers
+0.2.88
+ - bugfix groot_sources to only work in a non-ros shell
+0.2.87
+ - yujin_init_builds eclipse script points to the mars eclipse now.
+0.2.86
+ - added yujin_list_dirs_by_size script
+0.2.85
+ - update navigation workspace for groot
+0.2.84
+ - bugfix disabling of interactive mode, had commented the rsync.
+0.2.83
+ - groot_sources use --install-rosdeps to match yujin_make
+ - groot_binaries interactive mode disabled so we can do ci.
+0.2.82
+ - deprecate yujin_tools_update and git-big-picture
+0.2.81
+ - add --install-rosdeps to groot_binaries
+ - update rocon sources for groot_sources
+0.2.80
+ - switch eclipse shortcut to /opt/yujin/eclipse/eclipse, where our binary install goes.
+0.2.78
+ - yujin_ascii_plot added
+0.2.76
+ - show help for groot_binaries
+0.2.75
+ - always take custom platforms and toolchains first.
+0.2.74
+ - platform arm/cortex-a7 added.
+0.2.73
+ - refactored arm platform cmake DSLAM_ENABLE_OPENCV->DSLAM_ENABLE_OPENCV_DEBUGGING
+0.2.72
+ - disable opencv debugging when cross compiling.
+0.2.71
+ - dslam_binaries script for getting the arm binaries.
+0.2.69
+ - default mode for yujin_make_isolated is to follow config.cmake, --suffixes option added.
+ - should really automagically enable it to add suffixes if it finds paths already.
+0.2.68
+ - yujin_tools_update added
+0.2.67
+ - groot_sync gets a --list option
+0.2.66
+ - dslam_desktop -> gopher_dslam
+0.2.65
+ - fix groot underlay names
+0.2.64
+ - groot_binaries
+0.2.63
+ - groot_sync
+0.2.62
+ - groot_build, groot_sources scripts
+0.2.61
+ - relax execution permissions on scripts to permit groups
+ - add to users group helper script
+0.2.60
+ - check installed space underlays when installing rosdeps
+0.2.59
+ - help the user by providing the files.yujin.com username for rsyncing.
+0.2.58
+ - yujin install space scripts
+0.2.57
+ - platform for arm1176jzf-s with hard floating point option.
+0.2.56
+ - bugfix previous release
+0.2.55
+ - bugfix previous release
+0.2.54
+ - buildroot toolchain modules
+0.2.53
+ - yujin_init_workspace --merge added
+ - yujin_make --install-rosdeps now considers chained source workspaces
+0.2.52
+ - git-big-picture script added
+0.2.51
+ - bugfix previous arm support for nanomsg
+0.2.50
+ - arm support for nanomsg in platform configuration.
+0.2.49
+ - default track now indigo
+0.2.48
+ - use YUJIN_WORKSPACE if set to find the root
+0.2.47
+ - separate build and run test options for yujin_make.
+ - new buildroot toolchain for arm1176jzf-s.
+0.2.46
+ - arm1176jzf-s module updated to use EIGEN_3_2_1.
+0.2.45
+ - was cleaning .bashrc or android-studio in a build clean, fixed.
+0.2.43
+ - added support for indigo.
+0.2.42
+ - added yujin_list_git_branches script.
+0.2.41
+ - executing all tests should use the 'test' target, not 'tests', nor 'run_tests'.
+0.2.40
+ - bugfix missing android-studio template install rule
+0.2.39
+ - init build template for android-studio
+0.2.38
+ - nicer printing of underlay list after init_build
+0.2.37
+ - sort list of rosinstalls alphabetically for yujin_init_workspace
+0.2.36
+ - continue installing rosdeps even with errors
+0.2.35
+ - added the script avahi-browse-multimaster
+0.2.34
+ - added the script avahi-browse-concerts
+0.2.33
+ - bugfix default cmake build type
+0.2.32
+ - dont source an incorrect underlay in the eclipse script for yujin_init_build
+0.2.31
+ - generate pkg_config_paths from the underlays
+0.2.30
+ - bugfix the install rosdeps tracks option
+0.2.29
+ - a rosdeps install option for yujin_make
+ - cancelling the default underlay for yujin_init_build
+0.2.28
+ - bugfix environment pythonpath /opt/ros/hydro setting.
+0.2.27
+ - caching the toolchain family for nexell toolchains.
+0.2.26
+ - remove toolchains when cleaning the build
+ - update the nexell toolchain for our deb
+0.2.25
+ - bugfix yujin_make_isolated
+ - reuse actual catkin code as much as possible
+ - added a --target option for yujin_make_isolated
+0.2.24
+ - added a --target option for yujin_make
+0.2.23
+ - init build should also clean build and devel folders
+0.2.22
+ - trivial typo bugfix (eof newline) for config.cmake
+0.2.21
+ - added --clean for yujin_init_build
+0.2.20
+ - add the nexel toolchain support
+0.2.18
+ - fix broken output of --list-rosinstalls for list values
+0.2.17
+ - fix broken url's for yujin_init_workspace
+0.2.16
+ - masteruri script
+0.2.15
+ - cmake only option
+0.2.14
+ - bugfix broken find catkin args in yujin_init_build
+0.2.13
+ - trigger yujin_make from YUJIN_MAKE_ROOT environment variable automagically hidden in setup.bash
+0.2.12
+ - help instructions for sequencing of underlays
+0.2.11
+ - remove debugging prints
+0.2.10
+ - multiple targets for init_workspace
+ - relational rosinstalls in the rosinstall database (again init workspace)
+0.2.9
+ - bugfix the single build case for source symlink checks
+0.2.8
+ - allow for empty workspaces when init'ing
+ - check and update source symlinks
+0.2.7
+ - pre-clean for yujin_make_isolated
+0.2.6
+ - bugfix for yujin_make's pythonpath when calling make or run tests
+0.2.5
+ - make isolated is working!
+0.2.3
+ - bugfix for missing arg in yujin_init_build's config.cmake dump.
+0.2.2
+ - install target for yujin_make
+ - symlink'd source space into build space to remove shared toplevel.cmake dependancy
+0.2.1
+ - add tests and run_tests options
+0.2.0
+ - using tracks instead of hardcoded groovy
+ - using our own non environment dependant make script
+0.1.17
+ - rosdistro style rosinstall database for us
+0.1.16
+ - bugfix devel locations in .bashrc
+0.1.15
+ - split yujin_init_workspace functionality into workspace and build scripots.
+0.1.14
+ - specify overlay directories
+ - option to create just a very simple single build workspace
+0.1.13
+ - use debug/devel as the default environment if it exists.
+0.1.12
+ - bugfix tabs in release makefile.
+0.1.11
+ - bugfix package_data not getting installed for yujin_init_workspace.
+0.1.10
+ - yujin_init_workspace args for workspace location and cross environment.
+0.1.9
+ - added run_tests target to workpace makefile targets
+0.1.8
+ - put devel folder in ./devel in the make cmake
+0.1.7
+ - bugfix cmake options in the make cmake
+0.1.6
+ - added cmake only build type in yujin_init_workspace.
+0.1.5
+ - preliminary support for finding toolchains and platforms.
+0.1.4
+ - added our old legacy roscreate-shortcuts script.
+0.1.3
+ - added a YUJIN_WORKSPACE environment variable (useful).
+0.1.2
+ - option for blacklisting packages, also split cmake and make build targets.
+0.1.1
+ - parallel native and cross build directories.
+ - added a setup.bash
+0.1.0
+ - cfind and yujin_init_workspace added
+

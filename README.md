@@ -2,22 +2,30 @@
 
 Branches:
 
-- ROS1 : Noetic
-    - Description: Basic setup and an attempt to create everything from scratch
-    - Status: Abandoned.
-    - Reason: A waste of time to create everything from scratch. Not worth it.
+- ROS1 : Noetic_Real_Buggy
+    - Description: Basic setup that can both drive the turtlebot in simulation and reality. Built by combining and combing out bugs from melodic development. 
+    - Status: Completed.
+    - Note: Not a pleasent package to setup, but works well and has nothing more to be added to.
 
-- ROS2 : SMCVG
-    - Description: An attempt at implementation of the paper that presented a vision based local planner.
-    - Status: Abandoned.
-    - Reason: The model worked almost perfectly, which made it clear that simualtions are too good to be true, hence of no use.
+- ROS2 : smc-sim
+    - Description: An implementation of Switching based Sliding Mode Control for trajectory tracking.
+    - Status: Completed.
 
-- ROS2 : rrt-smc
-    - Description: An implementation of Switching based Sliding Mode Control (Non Linear)
-    - Status: Success.
-    - Note: Misleading branch name, switching branch to make a better iteration of the mentioned combination in the name.
+- ROS1 : ros1_devel
+    - Description: A bug free from scratch implementation for using turtlebot2(Kobuki) in simulation and reality with ROS Noetic.
+    - Status: In Progress; A better and more complete ros wrapper being built.
+    - Note: Purely for research purposes.
+ 
+- ROS2 : ros2_devel
+    - Description: A bug free from scratch implementation for using turtlebot2(Kobuki) in simulation and reality with ROS2 Foxy.
+    - Status: In Progress; A better and more complete ros2 wrapper being built.
+    - Note: Purely for research purposes.
 
-- ROS2 : stack2
-    - Description: An implementation of a Non Linear Control model developed in 'rrt-smc' wrapped with Navigation 2 stack.
-    - Status: In Progress.
-    - Note: The reason Nav2 stack was selected is to have a tested architecture in use. Making my own makes no sense and is a waste of time.
+- ROS1 : mapping
+    - Description: An attempt to interface SLAM with the wrapper previously built with ROS and Astra Camera.
+    - Status: In Progress; tf setup and tuning left out.
+
+- ROS1 : shepherd
+    - Description: Robot follows robot using Fiducial markers; Two turtlebots in reality and ROS1 Noetic without any communication b/w them. Initial attempt at basic swarm behavioural algorithms
+    - Status: In Progress; Fiducial Markers setup and being detected, code for controller and testing left out.
+    

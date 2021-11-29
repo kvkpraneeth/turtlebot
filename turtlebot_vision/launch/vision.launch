@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    
+    <include file="$(find astra_camera)/launch/astra.launch"/>
+    <include file="$(find aruco_detect)/launch/aruco_detect.launch"/>
+
+</launch>

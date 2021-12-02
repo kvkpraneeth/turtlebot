@@ -4,7 +4,7 @@ namespace turtlebot{
 
 	namespace interface{
 
-		driver::driver(ros::NodeHandlePtr nh)
+		driver::driver(ros::NodeHandlePtr& nh)
 		{
 			kobuki::Parameters parameters;
 
@@ -39,6 +39,8 @@ namespace turtlebot{
 
 			pub = nh->advertise<nav_msgs::Odometry>("/odom", 10);
 
+			JointStatePub = nh->advertise<sensor_msgs::JointState>("/joint_states", 10);
+
 			timer = nh->createTimer(ros::Duration(0.1), &driver::odomPub, this);
 
 			this->x = 0;
@@ -57,7 +59,25 @@ namespace turtlebot{
 			ecl::LegacyPose2D<double> poseUpdates;
 			ecl::linear_algebra::Vector3d poseUpdateRates;
 
+			sensor_msgs::JointState joint_state;
+
+			double leftWheel, leftWheelRate, rightWheel, rightWheelRate;
+
+			joint_state.header.frame_id = "";
+			joint_state.header.seq = this->seq + 1;
+			joint_state.header.stamp = ros::Time::now();
+
+			joint_state.name.reserve(2);
+			joint_state.name.push_back("wheel_right_joint");
+			joint_state.name.push_back("wheel_left_joint");
+
 			this->kobuki.updateOdometry(poseUpdates, poseUpdateRates);
+
+			this->kobuki.getWheelJointStates(leftWheel, leftWheelRate, rightWheel, rightWheelRate);
+
+			joint_state.position.reserve(2);
+			joint_state.position.push_back(leftWheel);
+			joint_state.position.push_back(rightWheel);
 
 			this->theta += poseUpdates.heading();
 			this->x += poseUpdates.x() * std::cos(theta);
@@ -76,6 +96,7 @@ namespace turtlebot{
 			msg_.pose.pose.orientation.y = quat.getY();
 			msg_.pose.pose.orientation.z = quat.getZ();
 
+			JointStatePub.publish(joint_state);
 			pub.publish(msg_);
 
 		}

@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
     ecl_command_line
     kobuki_driver
     tf2
-    tf2_ros
+    sensor_msgs
 )
 
 catkin_package()

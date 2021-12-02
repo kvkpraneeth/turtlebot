@@ -8,9 +8,8 @@
 #include "ecl/linear_algebra.hpp"
 #include "ecl/geometry/legacy_pose2d.hpp"
 #include <tf2/LinearMath/Quaternion.h>
+#include "sensor_msgs/JointState.h"
 #include "math.h"
-#include <tf2_ros/static_transform_broadcaster.h>
-#include "geometry_msgs/Transform.h"
 
 namespace turtlebot{
 
@@ -21,7 +20,7 @@ namespace turtlebot{
 
             public:
 
-                driver(ros::NodeHandlePtr nh);
+                driver(ros::NodeHandlePtr& nh);
 
                 void velocityCB(const geometry_msgs::Twist::ConstPtr& msg);
 
@@ -46,10 +45,13 @@ namespace turtlebot{
                 kobuki::Kobuki kobuki;
                 ros::Subscriber sub;
                 ros::Publisher pub;
+                ros::Publisher JointStatePub;
 
                 ros::Timer timer;
 
                 double x, y, theta;
+                int seq=0;
+
 
         };
     }

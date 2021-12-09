@@ -46,6 +46,7 @@ namespace turtlebot{
 			this->x = 0;
 			this->y = 0;
 			this->theta = 0;
+
 		}
 
 		void driver::velocityCB(const geometry_msgs::Twist::ConstPtr& msg)
@@ -85,6 +86,11 @@ namespace turtlebot{
 
 			nav_msgs::Odometry msg_;
 
+			msg_.header.frame_id = "odom";
+			msg_.child_frame_id = "base_footprint";
+			msg_.header.seq = seq;
+			msg_.header.stamp = ros::Time::now();
+
 			msg_.pose.pose.position.x = this->x;
 			msg_.pose.pose.position.y = this->y;
 
@@ -95,6 +101,26 @@ namespace turtlebot{
 			msg_.pose.pose.orientation.x = quat.getX();
 			msg_.pose.pose.orientation.y = quat.getY();
 			msg_.pose.pose.orientation.z = quat.getZ();
+
+			static tf2_ros::TransformBroadcaster br;
+			geometry_msgs::TransformStamped transformStamped;
+
+			transformStamped.header.stamp = ros::Time::now();
+			transformStamped.header.frame_id = "odom";
+			transformStamped.child_frame_id = "base_link";
+			transformStamped.transform.translation.x = x;
+			transformStamped.transform.translation.y = y;
+			transformStamped.transform.translation.z = 0.0;
+
+			tf2::Quaternion q;
+			q.setRPY(0, 0, theta);
+			
+			transformStamped.transform.rotation.x = q.x();
+			transformStamped.transform.rotation.y = q.y();
+			transformStamped.transform.rotation.z = q.z();
+			transformStamped.transform.rotation.w = q.w();
+
+			br.sendTransform(transformStamped);
 
 			JointStatePub.publish(joint_state);
 			pub.publish(msg_);

@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
     kobuki_driver
     tf2
     sensor_msgs
+    tf2_ros
 )
 
 catkin_package()

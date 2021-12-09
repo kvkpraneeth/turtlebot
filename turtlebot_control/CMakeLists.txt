@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
     geometry_msgs
     nav_msgs
     fiducial_msgs
+    tf2_ros
 )
 
 catkin_package()

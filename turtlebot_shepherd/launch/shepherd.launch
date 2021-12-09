@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    
+    <include file="$(find turtlebot_interface)/launch/interface.launch"/>
+    <include file="$(find turtlebot_vision)/launch/vision.launch"/>
+
+    <node name="follow" pkg="turtlebot_control" type="follow" output="screen"/>
+
+</launch>

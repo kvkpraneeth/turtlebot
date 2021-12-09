@@ -1,11 +1,12 @@
-#include "kobuki_control/core.h"
+#include "turtlebot/interface/interface.hpp"
 #include <chrono>
 #include <geometry_msgs/msg/detail/twist__struct.hpp>
 #include <kobuki_core/parameters.hpp>
 #include <nav_msgs/msg/detail/odometry__struct.hpp>
 
-KobukiControl::KobukiControl(const std::string &device) 
-		: Node("KobukiHandler")
+using namespace turtlebot::interface;
+
+interface::interface(const std::string &device) : Node("interface")
 {
 	kobuki::Parameters parameters;
 
@@ -36,24 +37,23 @@ KobukiControl::KobukiControl(const std::string &device)
     	std::cout << e.what();
     }
 
-	VelSub = create_subscription<geometry_msgs::msg::Twist>
-					("cmd_vel", 100, std::bind(&KobukiControl::VelSubCallback, 
-						this, std::placeholders::_1));
+	VelSub = create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 100, std::bind(&interface::VelSubCallback, this, std::placeholders::_1));
 
-	EncoderTimer = create_wall_timer
-					(std::chrono::duration<double, std::ratio<1,1000>>(10), 
-					 	std::bind(&KobukiControl::EncoderTimerCallback, this));
+	OdometryTimer = create_wall_timer(std::chrono::duration<double, std::ratio<1,1000>>(10), std::bind(&interface::OdometryTimerCallback, this));
 
-	OdomPub = create_publisher<nav_msgs::msg::Odometry>("/enc_odom", 100);
+	OdomPub = create_publisher<nav_msgs::msg::Odometry>("/odom", 100);
+
+	this->Pose.setZero();
 
 }
 
-void KobukiControl::VelSubCallback
-			(const geometry_msgs::msg::Twist::SharedPtr msg)
+void interface::VelSubCallback(const geometry_msgs::msg::Twist::SharedPtr msg)
 {
 	kobuki.setBaseControl(msg->linear.x, msg->angular.z);
 }
 
-void KobukiControl::EncoderTimerCallback(){
-	std::cout << kobuki.getCoreSensorData().left_encoder << ", " << kobuki.getCoreSensorData().right_encoder << std::endl;
+void interface::OdometryTimerCallback()
+{
+	Eigen::Vector3d poseUpdates, poseUpdatesRates;
+	this->kobuki.updateOdometry(poseUpdates, poseUpdatesRates);
 }

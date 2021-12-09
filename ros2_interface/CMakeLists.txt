@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(kobuki_control)
+project(ros2_interface)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
@@ -27,26 +27,32 @@ set(dependencies
 	kobuki_core
 	geometry_msgs
 	realtime_tools
-	nav_msgs)
+	nav_msgs
+)
 
-add_library(kobuki_control_core SHARED src/kobuki_control.cpp)
-ament_target_dependencies(kobuki_control_core ${dependencies})
-target_include_directories(kobuki_control_core PUBLIC include)
+set(INCLUDE_DIRS
+    ${EIGEN3_INCLUDE_DIRS}
+    include
+)
 
-add_executable(controltest src/controltest.cpp)
-ament_target_dependencies(controltest ${dependencies})
-target_include_directories(controltest PUBLIC include)
-target_link_libraries(controltest kobuki_control_core)
+add_library(interface_core SHARED src/interface.cpp)
+ament_target_dependencies(interface_core ${dependencies})
+target_include_directories(interface_core PUBLIC include)
+
+add_executable(interface src/main.cpp)
+ament_target_dependencies(interface ${dependencies})
+target_include_directories(interface PUBLIC include)
+target_link_libraries(interface interface_core)
 
 install(DIRECTORY include/
     DESTINATION include
 )
 
-install(TARGETS controltest
+install(TARGETS interface
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(TARGETS kobuki_control_core
+install(TARGETS interface_core
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
@@ -60,18 +66,8 @@ if(BUILD_TESTING)
 
 endif()
 
-set(INCLUDE_DIRS
-    ${EIGEN3_INCLUDE_DIRS}
-    include
-)
-
-set(dependencies
-    Eigen3
-	rclcpp
-	kobuki_core
-	geometry_msgs)
 
 ament_export_include_directories(${INCLUDE_DIRS})
-ament_export_libraries(kobuki_control_core)
+ament_export_libraries(interface_core)
 ament_export_dependencies(${dependencies})
 ament_package()

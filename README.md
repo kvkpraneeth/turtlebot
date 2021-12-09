@@ -13,7 +13,7 @@ Branches:
 
 - ROS1 : ros1_devel
     - Description: A bug free from scratch implementation for using turtlebot2(Kobuki) in simulation and reality with ROS Noetic.
-    - Status: In Progress; A better and more complete ros wrapper being built.
+    - Status: Completed
     - Note: Purely for research purposes.
  
 - ROS2 : ros2_devel
@@ -23,7 +23,7 @@ Branches:
 
 - ROS1 : mapping
     - Description: An attempt to interface SLAM with the wrapper previously built with ROS and Astra Camera.
-    - Status: In Progress; tf setup and tuning left out.
+    - Status: Tuning of Gmapping.
 
 - ROS1 : shepherd
     - Description: Robot follows robot using Fiducial markers; Two turtlebots in reality and ROS1 Noetic without any communication b/w them. Initial attempt at basic swarm behavioural algorithms

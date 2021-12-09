@@ -27,5 +27,6 @@ Branches:
 
 - ROS1 : shepherd
     - Description: Robot follows robot using Fiducial markers; Two turtlebots in reality and ROS1 Noetic without any communication b/w them. Initial attempt at basic swarm behavioural algorithms
-    - Status: In Progress; Fiducial Markers setup and being detected, code for controller and testing left out.
+    - Status: Completed
+    - https://youtu.be/w6hWpJQhLT0
     

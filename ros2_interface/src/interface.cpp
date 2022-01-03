@@ -6,7 +6,7 @@
 
 using namespace turtlebot::interface;
 
-interface::interface(const std::string &device) : Node("interface")
+driver::driver(const std::string &device) : Node("interface")
 {
 	kobuki::Parameters parameters;
 
@@ -37,9 +37,9 @@ interface::interface(const std::string &device) : Node("interface")
     	std::cout << e.what();
     }
 
-	VelSub = create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 100, std::bind(&interface::VelSubCallback, this, std::placeholders::_1));
+	VelSub = create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 100, std::bind(&driver::VelSubCallback, this, std::placeholders::_1));
 
-	OdometryTimer = create_wall_timer(std::chrono::duration<double, std::ratio<1,1000>>(10), std::bind(&interface::OdometryTimerCallback, this));
+	OdometryTimer = create_wall_timer(std::chrono::duration<double, std::ratio<1,1000>>(10), std::bind(&driver::OdometryTimerCallback, this));
 
 	OdomPub = create_publisher<nav_msgs::msg::Odometry>("/odom", 100);
 
@@ -47,12 +47,12 @@ interface::interface(const std::string &device) : Node("interface")
 
 }
 
-void interface::VelSubCallback(const geometry_msgs::msg::Twist::SharedPtr msg)
+void driver::VelSubCallback(const geometry_msgs::msg::Twist::SharedPtr msg)
 {
 	kobuki.setBaseControl(msg->linear.x, msg->angular.z);
 }
 
-void interface::OdometryTimerCallback()
+void driver::OdometryTimerCallback()
 {
 	Eigen::Vector3d poseUpdates, poseUpdatesRates;
 	this->kobuki.updateOdometry(poseUpdates, poseUpdatesRates);

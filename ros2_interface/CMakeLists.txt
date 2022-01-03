@@ -22,7 +22,7 @@ find_package(realtime_tools REQUIRED)
 find_package(nav_msgs REQUIRED)
 
 set(dependencies
-    Eigen3
+  Eigen3
 	rclcpp
 	kobuki_core
 	geometry_msgs
@@ -31,8 +31,8 @@ set(dependencies
 )
 
 set(INCLUDE_DIRS
-    ${EIGEN3_INCLUDE_DIRS}
-    include
+  ${EIGEN3_INCLUDE_DIRS}
+  include
 )
 
 add_library(interface_core SHARED src/interface.cpp)
@@ -45,7 +45,7 @@ target_include_directories(interface PUBLIC include)
 target_link_libraries(interface interface_core)
 
 install(DIRECTORY include/
-    DESTINATION include
+  DESTINATION include
 )
 
 install(TARGETS interface
@@ -53,16 +53,16 @@ install(TARGETS interface
 )
 
 install(TARGETS interface_core
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-    INCLUDES DESTINATION include
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
 )
 
 if(BUILD_TESTING)
 
-    find_package(ament_lint_auto REQUIRED)
-    ament_lint_auto_find_test_dependencies()
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
 
 endif()
 

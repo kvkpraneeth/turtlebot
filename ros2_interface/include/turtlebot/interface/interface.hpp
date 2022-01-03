@@ -26,12 +26,12 @@ namespace turtlebot{
 
     namespace interface{
 
-        class interface : public rclcpp::Node
+        class driver : public rclcpp::Node
         {
 
             public:
                 
-                interface(const std::string &device); 
+                driver(const std::string &device); 
                 
                 void VelSubCallback(const geometry_msgs::msg::Twist::SharedPtr msg);
 

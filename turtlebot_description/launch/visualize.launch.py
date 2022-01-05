@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 """
-This launch file publishes the parsed robot file onto Robot State Publisher Topic, the Joint State Publisher and opens rviz to viz.
+This launch file publishes the parsed robot file onto Robot State Publisher Topic, the Joint State Publisher.
 """
 
 import os
-from posixpath import join
 import xacro
 
 from ament_index_python.packages import get_package_share_directory
@@ -36,7 +35,6 @@ def generate_launch_description():
                             package='robot_state_publisher', 
                             executable='robot_state_publisher', 
                             name='robot_state_publisher', 
-                            output='screen', 
                             parameters=[{'use_sim_time': use_sim_time}, {'robot_description': doc.toxml()}]
                             )
 

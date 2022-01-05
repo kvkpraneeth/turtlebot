@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(ros2_interface)
+project(turtlebot_interface)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
@@ -20,6 +20,8 @@ find_package(kobuki_core REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(realtime_tools REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 set(dependencies
   Eigen3
@@ -28,6 +30,8 @@ set(dependencies
 	geometry_msgs
 	realtime_tools
 	nav_msgs
+  sensor_msgs
+  tf2_ros
 )
 
 set(INCLUDE_DIRS
@@ -57,6 +61,10 @@ install(TARGETS interface_core
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES DESTINATION include
+)
+
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

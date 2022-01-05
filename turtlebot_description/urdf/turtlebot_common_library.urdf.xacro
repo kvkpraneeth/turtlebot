@@ -1,6 +1,20 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin
+      filename="libignition-gazebo-diff-drive-system.so"
+      name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+      <wheel_separation>0.230</wheel_separation>
+      <wheel_radius>0.070</wheel_radius>
+      <odom_publish_frequency>1</odom_publish_frequency>
+      <topic>cmd_vel</topic>
+    </plugin>
+  </gazebo>
+
   <!-- General -->
   <xacro:include filename="$(find turtlebot_description)/urdf/common_properties.urdf.xacro"/>
   <xacro:include filename="$(find turtlebot_description)/urdf/turtlebot_properties.urdf.xacro"/>

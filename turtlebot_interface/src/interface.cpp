@@ -107,7 +107,7 @@ namespace turtlebot{
 
 			transformStamped.header.stamp = ros::Time::now();
 			transformStamped.header.frame_id = "odom";
-			transformStamped.child_frame_id = "base_link";
+			transformStamped.child_frame_id = "base_footprint";
 			transformStamped.transform.translation.x = x;
 			transformStamped.transform.translation.y = y;
 			transformStamped.transform.translation.z = 0.0;

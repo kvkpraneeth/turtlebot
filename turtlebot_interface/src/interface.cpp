@@ -57,16 +57,28 @@ namespace turtlebot{
 		void driver::odomPub(const ros::TimerEvent& event)
 		{
 
+			static tf2_ros::TransformBroadcaster br;
+
+			this->seq += 1;
+
 			ecl::LegacyPose2D<double> poseUpdates;
 			ecl::linear_algebra::Vector3d poseUpdateRates;
 
 			sensor_msgs::JointState joint_state;
 
+			geometry_msgs::TransformStamped transformStamped;
+
 			double leftWheel, leftWheelRate, rightWheel, rightWheelRate;
 
+			std_msgs::Header header;
+
+			header.frame_id = "odom";
+			header.seq = seq;
+			header.stamp = ros::Time::now();
+
 			joint_state.header.frame_id = "";
-			joint_state.header.seq = this->seq + 1;
-			joint_state.header.stamp = ros::Time::now();
+			joint_state.header.seq = header.seq;
+			joint_state.header.stamp = header.stamp;
 
 			joint_state.name.reserve(2);
 			joint_state.name.push_back("wheel_right_joint");
@@ -74,7 +86,8 @@ namespace turtlebot{
 
 			this->kobuki.updateOdometry(poseUpdates, poseUpdateRates);
 
-			this->kobuki.getWheelJointStates(leftWheel, leftWheelRate, rightWheel, rightWheelRate);
+			this->kobuki.getWheelJointStates(leftWheel, leftWheelRate, 
+				rightWheel, rightWheelRate);
 
 			joint_state.position.reserve(2);
 			joint_state.position.push_back(leftWheel);
@@ -86,10 +99,8 @@ namespace turtlebot{
 
 			nav_msgs::Odometry msg_;
 
-			msg_.header.frame_id = "odom";
+			msg_.header = header;
 			msg_.child_frame_id = "base_footprint";
-			msg_.header.seq = seq;
-			msg_.header.stamp = ros::Time::now();
 
 			msg_.pose.pose.position.x = this->x;
 			msg_.pose.pose.position.y = this->y;
@@ -102,26 +113,18 @@ namespace turtlebot{
 			msg_.pose.pose.orientation.y = quat.getY();
 			msg_.pose.pose.orientation.z = quat.getZ();
 
-			static tf2_ros::TransformBroadcaster br;
-			geometry_msgs::TransformStamped transformStamped;
-
-			transformStamped.header.stamp = ros::Time::now();
-			transformStamped.header.frame_id = "odom";
+			transformStamped.header = header;
 			transformStamped.child_frame_id = "base_footprint";
 			transformStamped.transform.translation.x = x;
 			transformStamped.transform.translation.y = y;
 			transformStamped.transform.translation.z = 0.0;
-
-			tf2::Quaternion q;
-			q.setRPY(0, 0, theta);
 			
-			transformStamped.transform.rotation.x = q.x();
-			transformStamped.transform.rotation.y = q.y();
-			transformStamped.transform.rotation.z = q.z();
-			transformStamped.transform.rotation.w = q.w();
+			transformStamped.transform.rotation.x = quat.getX();
+			transformStamped.transform.rotation.y = quat.getY();
+			transformStamped.transform.rotation.z = quat.getZ();
+			transformStamped.transform.rotation.w = quat.getW();
 
 			br.sendTransform(transformStamped);
-
 			JointStatePub.publish(joint_state);
 			pub.publish(msg_);
 

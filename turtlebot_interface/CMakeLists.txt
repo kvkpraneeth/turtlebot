@@ -21,6 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
     tf2
     sensor_msgs
     tf2_ros
+    std_msgs
 )
 
 catkin_package()

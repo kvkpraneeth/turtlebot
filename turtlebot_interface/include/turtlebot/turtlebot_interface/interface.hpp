@@ -42,6 +42,14 @@ namespace turtlebot{
 
                 const double ticks_per_mm = 11.7;
 
+                bool use_imu_heading=true;
+
+                std::string base_frame="base_footprint"; 
+                std::string odom_frame="odom";
+                std::string velocity_topic="cmd_vel";
+                std::string odom_topic="odom";
+                std::string joint_topic="joint_states";
+
             private:
                 
                 kobuki::Kobuki kobuki;
